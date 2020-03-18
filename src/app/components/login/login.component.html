@@ -150,22 +150,20 @@
         <div class="col-lg-6 col-md-8">
           <div class="card bg-secondary shadow border-0">
             
-            <div class="card-body px-lg-6 py-lg-7 mb-3">
-              <div class="text-center text-muted mb-4">
-                <small>Sign up if you are new</small><i class="ni ni-satisfied-83"></i>
+            <div class="card-body px-lg-6 py-lg-5 mb-3">
+              <div class="text-center mb-4">
+                <b>Sign up if you are new</b><i class="ni ni-satisfied-83"></i>
               </div>
               <form class="form" [formGroup]="registerForm" (ngSubmit)="registerNewUser()">
                 <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" class="form-control" formControlName="name">
+                    <input type="text"  placeholder="Full Name" class="form-control" formControlName="name">
                     <span class="text-danger"
                         *ngIf="(registerFormControl.name.touched || submitted) && registerFormControl.name.errors?.required">
                         Name is required
                     </span>
                 </div>
                 <div class="form-group">
-                    <label>Email</label>
-                    <input type="text" class="form-control" formControlName="email">
+                    <input type="text" class="form-control" placeholder="Email" formControlName="email">
                     <span class="text-danger"
                         *ngIf="(registerFormControl.email.touched || submitted) && registerFormControl.email.errors?.required">
                         Email is required
@@ -176,8 +174,7 @@
                     </span>
                 </div>
                 <div class="form-group">
-                    <label>User Name</label>
-                    <input type="text" class="form-control" formControlName="username">
+                    <input type="text" placeholder="User Name" class="form-control" formControlName="username">
                     <span class="text-danger"
                         *ngIf="(registerFormControl.username.touched || submitted) && registerFormControl.username.errors?.required">
                         User Name is required
@@ -188,8 +185,7 @@
                     </span>
                 </div>
                 <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" class="form-control" formControlName="password">
+                    <input type="password" placeholder="Password" class="form-control" formControlName="password">
                     <span class="text-danger"
                         *ngIf="(registerFormControl.password.touched || submitted) && registerFormControl.password.errors?.required">
                         Password is required
@@ -201,96 +197,26 @@
                     </span>
                 </div>
                 <div class="form-group">
-                    <label> Phone Number</label>
-                    <input type="text" class="form-control" formControlName="phone">
+                    <input type="text" placeholder="Phone Number" class="form-control" formControlName="phone">
                     <span class="text-danger"
                         *ngIf="(registerFormControl.phone.touched || submitted) && registerFormControl.phone.errors?.required">
                         Phone Number is required
                     </span>
                     
                 </div>
-                <div class="form-group">
+                <div class="d-flex justify-content-center form-group">
                     <button type="submit" class="btn btn-success"[disabled]="!registerForm.valid">Register</button>
                 </div>
             </form>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-              <!-- <form role="form">
-              
-                <div class="form-group">
-                  <div class="input-group input-group-alternative mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
-                    </div>
-                    <input class="form-control" placeholder="First name" type="text">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="input-group input-group-alternative mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
-                    </div>
-                    <input class="form-control" placeholder="Surname" type="text">
-                  </div>
-                </div>
-              
-                <div class="form-group">
-                  <div class="input-group input-group-alternative mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-email-83"></i></span>
-                    </div>
-                    <input class="form-control" placeholder="Email" type="email">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="input-group input-group-alternative mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-mobile-button"></i></span>
-                    </div>
-                    <input class="form-control" placeholder="Mobile number" type="email">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="input-group input-group-alternative">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                    </div>
-                    <input class="form-control" placeholder="Password" type="password">
-                  </div>
-                </div>
-                <div class="text-center">
-                  <button type="button" class="btn btn-primary mt-4">Create account</button>
-                </div>
-              </form> -->
+            <div class="row mt-3">
+              <div class="col-6">
+                <!-- <a href="#" class="text-light" (click)="SwithToForgetPass()">Already a member? <small>Forgot password?</small></a> -->
+              </div>
+              <div class="col-10 text-right">
+                <b >Already a member? </b><a href="#" class="text-light" (click)="SwithToLogin()"><small>Sign In</small></a>
+              </div>
             </div>
-          </div>
-          <div class="row mt-3">
-            <div class="col-6">
-              <a href="#" class="text-light"></a>
-            </div>
-            <div class="col- pl-1 text-right"><span>Already a member? </span>
-              <a href="#" class="text-light" (click)="SwithToLogin()"><small>Sign In</small></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+          
 
 <!-- Forget password form -->
 
