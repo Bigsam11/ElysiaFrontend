@@ -6,16 +6,15 @@ import {AuthService} from '../../services/auth.service';
 import { Router } from  '@angular/router';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   loginForm:FormGroup;
   isSubmitted = false;
   ShowLogin: boolean = true;
-  ShowRegist:boolean = false;
   submitted = false;
   ShowForgetPass:boolean = false;
   formBuilder: any;
@@ -27,47 +26,42 @@ export class LoginComponent implements OnInit {
 
   
   SwithToRegistration(){
-    this.ShowRegist = true;
     this.ShowLogin = false;
     this.ShowForgetPass = false;
   }
 
   SwithToLogin(){
-    this.ShowRegist = false;
     this.ShowLogin = true;
     this.ShowForgetPass = false;
   }
 
   SwithToForgetPass(){
-    this.ShowRegist = false;
     this.ShowLogin = false;
     this.ShowForgetPass = true;
   }
 
 
   ngOnInit() {
-
-     this.loginForm  =  this.fb.group({
+    this.registerForm = this.fb.group({
+      name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
-  });
-  
+      username: ['', [Validators.required], this.customValidator.userNameValidator.bind(this.customValidator)],
+      password: ['', Validators.compose([Validators.required, this.customValidator.patternValidator()])],
+      phone: ['', Validators.required],
+    });
   }
 
-  
+  get registerFormControl() {
+    return this.registerForm.controls;
+  }
 
-  get loginFormControls() {
-     return this.loginForm.controls;
-     }
-
-  loginUser() {
+  registerNewUser() {
     this.submitted = true;
-    if (this.loginForm.valid) {
+    if (this.registerForm.valid) {
       alert('Form Submitted succesfully!!!\n Check the values in browser console.');
-      console.table(this.loginForm.value);
-      
+      console.table(this.registerForm.value);
     }
   }
 
-
+  
 }

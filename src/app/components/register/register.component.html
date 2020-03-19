@@ -1,0 +1,91 @@
+
+  
+  <!-- Registeration form lies here -->
+  <div>
+    <div class="main-content" >
+        <app-top-nav></app-top-nav>
+      <div class="container mt--7 pb-9">
+        <div class="row justify-content-center">
+          <div class="col-lg-6 col-md-8">
+            <div class="card bg-secondary shadow border-0">
+              
+              <div class="card-body px-lg-6 py-lg-5 mb-3">
+                <div class="text-center mb-4">
+                  <b>Sign up if you are new</b><i class="ni ni-satisfied-83"></i>
+                </div>
+                <form class="form" [formGroup]="registerForm" (ngSubmit)="registerNewUser()">
+                  <div class="form-group">
+                      <input type="text"  placeholder="Full Name" class="form-control" formControlName="name">
+                      <span class="text-danger"
+                          *ngIf="(registerFormControl.name.touched || submitted) && registerFormControl.name.errors?.required">
+                          Name is required
+                      </span>
+                  </div>
+                  <div class="form-group">
+                      <input type="text" class="form-control" placeholder="Email" formControlName="email">
+                      <span class="text-danger"
+                          *ngIf="(registerFormControl.email.touched || submitted) && registerFormControl.email.errors?.required">
+                          Email is required
+                      </span>
+                      <span class="text-danger"
+                          *ngIf="registerFormControl.email.touched && registerFormControl.email.errors?.email">
+                          Enter a valid email address
+                      </span>
+                  </div>
+                  <div class="form-group">
+                      <input type="text" placeholder="User Name" class="form-control" formControlName="username">
+                      <span class="text-danger"
+                          *ngIf="(registerFormControl.username.touched || submitted) && registerFormControl.username.errors?.required">
+                          User Name is required
+                      </span>
+                      <span class="text-danger"
+                          *ngIf="registerFormControl.username.touched && registerFormControl.username.errors?.userNameNotAvailable">
+                          User Name is not available
+                      </span>
+                  </div>
+                  <div class="form-group">
+                      <input type="password" placeholder="Password" class="form-control" formControlName="password">
+                      <span class="text-danger"
+                          *ngIf="(registerFormControl.password.touched || submitted) && registerFormControl.password.errors?.required">
+                          Password is required
+                      </span>
+                      <span class="text-danger"
+                          *ngIf="registerFormControl.password.touched && registerFormControl.password.errors?.invalidPassword">
+                          Password should have minimum 8 characters, at least 1 uppercase letter, 1 lowercase
+                          letter and 1 number
+                      </span>
+                  </div>
+                  <div class="form-group">
+                      <input type="text" placeholder="Phone Number" class="form-control" formControlName="phone">
+                      <span class="text-danger"
+                          *ngIf="(registerFormControl.phone.touched || submitted) && registerFormControl.phone.errors?.required">
+                          Phone Number is required
+                      </span>
+                      
+                  </div>
+                  <div class="d-flex justify-content-center form-group">
+                      <button type="submit" class="btn btn-success"[disabled]="!registerForm.valid">Register</button>
+                  </div>
+              </form>
+              <div class="row mt-3">
+                <div class="col-6">
+                </div>
+                <div class="col-10 text-right">
+                  <b >Already a member? </b><a  class="text-light" routerLink='/login' ><small>Sign In</small></a>
+                </div>
+              </div>
+              </div>
+              </div>
+            
+  
+  <!-- Forget password form -->
+  
+ 
+  
+  
+  
+  
+    
+  
+  
+  
