@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import {CustomvalidationserviceService} from '../../services/customvalidationservice.service';
 import {User} from '../../model/user';
-import {AuthService} from '../../services/auth.service';
+import {AuthGuard} from '../../guards/auth.guard';
 import { Router } from  '@angular/router';
 
 @Component({
@@ -23,8 +23,8 @@ export class ForgetPasswordComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private customValidator:CustomvalidationserviceService,private authService: AuthService, private router: Router,
-  ) { }
+    private customValidator:CustomvalidationserviceService,private authService: AuthGuard, private router: Router,
+     ) { }
 
   
   // SwithToRegistration(){
@@ -66,6 +66,11 @@ export class ForgetPasswordComponent implements OnInit {
       alert('Form Submitted succesfully!!!\n Check the values in browser console.');
       console.table(this.changePasswordForm.value);
     }
+  }
+
+  reload(){
+    this.message = false;
+    this.recievedPass = true;
   }
 
   

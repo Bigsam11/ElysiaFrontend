@@ -64,7 +64,8 @@
                       
                   </div>
                   <div class="d-flex justify-content-center form-group">
-                      <button type="submit" class="btn btn-success"[disabled]="!registerForm.valid">Register</button>
+                      <button [disabled]="loading" type="submit" class="btn btn-success"[disabled]="!registerForm.valid">Register</button>
+                      <img *ngIf="loading" class="pl-3" src="/assets/img/brand/spinner.gif" />
                   </div>
               </form>
               <div class="row mt-3">

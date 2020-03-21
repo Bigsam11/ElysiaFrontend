@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import {CustomvalidationserviceService} from '../../services/customvalidationservice.service';
 import {User} from '../../model/user';
-import {AuthService} from '../../services/auth.service';
+import {AuthGuard} from '../../guards/auth.guard';
 import { Router } from  '@angular/router';
+import { AlertService, UserService, AuthenticationService } from '../../services/allservices';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-register',
@@ -12,34 +14,30 @@ import { Router } from  '@angular/router';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-  loginForm:FormGroup;
+  loading = false;
+  submitted = false;
   isSubmitted = false;
   ShowLogin: boolean = true;
-  submitted = false;
   ShowForgetPass:boolean = false;
   formBuilder: any;
 
   constructor(
     private fb: FormBuilder,
-    private customValidator:CustomvalidationserviceService,private authService: AuthService, private router: Router,
-  ) { }
+    private customValidator:CustomvalidationserviceService,
+    private authService: AuthGuard, 
+    private router: Router,
+    private authenticationService: AuthenticationService,
+    private userService: UserService,
+    private alertService: AlertService
+  ) { 
+
+    if (this.authenticationService.currentUserValue) { 
+      this.router.navigate(['/']);
+    }
+  }
 
   
-  SwithToRegistration(){
-    this.ShowLogin = false;
-    this.ShowForgetPass = false;
-  }
-
-  SwithToLogin(){
-    this.ShowLogin = true;
-    this.ShowForgetPass = false;
-  }
-
-  SwithToForgetPass(){
-    this.ShowLogin = false;
-    this.ShowForgetPass = true;
-  }
-
+  
 
   ngOnInit() {
     this.registerForm = this.fb.group({
@@ -56,12 +54,30 @@ export class RegisterComponent implements OnInit {
   }
 
   registerNewUser() {
+    
     this.submitted = true;
-    if (this.registerForm.valid) {
-      alert('Form Submitted succesfully!!!\n Check the values in browser console.');
-      console.table(this.registerForm.value);
-    }
-  }
+
+        // stop here if form is invalid
+        if (this.registerForm.invalid) {
+            return;
+        }
+        this.loading = true;
+        this.userService.register(this.registerForm.value)
+            .pipe(first())
+            .subscribe(
+                data => {
+                    this.alertService.success('Registration successful', true);
+                    this.router.navigate(['/login']);
+                },
+                error => {
+                    this.alertService.error(error);
+                    this.loading = false;
+                });
+   
+              }
+ 
+            }
+
 
   
-}
+
