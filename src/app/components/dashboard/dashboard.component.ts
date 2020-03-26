@@ -4,6 +4,7 @@ import { first } from 'rxjs/operators';
 
 import { User } from '../../model/user';
 import { UserService, AuthenticationService } from '../../services/allservices';
+import { Router } from '@angular/router';
 
 @Component({ templateUrl: 'dashboard.component.html' })
 export class DashboardComponent implements OnInit, OnDestroy {
@@ -13,11 +14,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     constructor(
         private authenticationService: AuthenticationService,
-        private userService: UserService
+        private userService: UserService,
+        private router: Router,
     ) {
         this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
             this.currentUser = user;
         });
+        this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+        console.table('the current users ::::',this.currentUser)
     }
 
     ngOnInit() {
@@ -32,6 +36,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     deleteUser(id: number) {
         this.userService.delete(id).pipe(first()).subscribe(() => {
             this.loadAllUsers()
+            //this.router.navigate(['/login']);
         });
     }
 
@@ -40,4 +45,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
             this.users = users;
         });
     }
+    logout() {
+        this.authenticationService.logout();
+        this.router.navigate(['/login']);
+    }
+
 }

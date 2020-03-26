@@ -10,12 +10,13 @@
             
             <div class="card-body px-lg-6 py-lg-7 mb-3">
               <div class="text-center text-muted mb-4">
+                <!-- <alert></alert> -->
                 <small>Sign in with credentials</small>
               </div>
               <form  [formGroup]="loginForm" (ngSubmit)="loginUser()">
                
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Email" formControlName="email">
+                    <input type="text" class="form-control" placeholder="Email" formControlName="email" [ngClass]="{ 'is-invalid': submitted && loginFormControls.email.errors }">
                     <span class="text-danger"
                         *ngIf="(loginFormControls.email.touched || submitted) && loginFormControls.email.errors?.required">
                         Email is required
@@ -27,7 +28,7 @@
                 </div>
                
                 <div class="form-group">
-                    <input type="password" placeholder="Password" class="form-control" formControlName="password">
+                    <input type="password" placeholder="Password" class="form-control" formControlName="password" [ngClass]="{ 'is-invalid': submitted && loginFormControls.email.errors }">
                     <span class="text-danger"
                         *ngIf="(loginFormControls.password.touched || submitted) && loginFormControls.password.errors?.required">
                         Password is required

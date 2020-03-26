@@ -3,7 +3,7 @@ import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import {CustomvalidationserviceService} from '../../services/customvalidationservice.service';
 import {User} from '../../model/user';
 import {AuthGuard} from '../../guards/auth.guard';
-import { Router } from  '@angular/router';
+import { Router, ActivatedRoute } from  '@angular/router';
 import { AlertService, UserService, AuthenticationService } from '../../services/allservices';
 import { first } from 'rxjs/operators';
 
@@ -20,6 +20,7 @@ export class RegisterComponent implements OnInit {
   ShowLogin: boolean = true;
   ShowForgetPass:boolean = false;
   formBuilder: any;
+  returnUrl: string;
 
   constructor(
     private fb: FormBuilder,
@@ -28,7 +29,8 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private userService: UserService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private route: ActivatedRoute,
   ) { 
 
     if (this.authenticationService.currentUserValue) { 
@@ -47,6 +49,8 @@ export class RegisterComponent implements OnInit {
       password: ['', Validators.compose([Validators.required, this.customValidator.patternValidator()])],
       phone: ['', Validators.required],
     });
+
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   get registerFormControl() {
@@ -62,6 +66,7 @@ export class RegisterComponent implements OnInit {
             return;
         }
         this.loading = true;
+        console.table('this is what i am sending::::::::',this.registerForm.value);
         this.userService.register(this.registerForm.value)
             .pipe(first())
             .subscribe(

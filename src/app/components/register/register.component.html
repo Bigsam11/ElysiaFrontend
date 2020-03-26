@@ -4,6 +4,7 @@
   <div>
     <div class="main-content" >
         <app-top-nav></app-top-nav>
+        
       <div class="container mt--7 pb-9">
         <div class="row justify-content-center">
           <div class="col-lg-6 col-md-8">
@@ -11,18 +12,19 @@
               
               <div class="card-body px-lg-6 py-lg-5 mb-3">
                 <div class="text-center mb-4">
+                  <!-- <alert></alert> -->
                   <b>Sign up if you are new</b><i class="ni ni-satisfied-83"></i>
                 </div>
                 <form class="form" [formGroup]="registerForm" (ngSubmit)="registerNewUser()">
                   <div class="form-group">
-                      <input type="text"  placeholder="Full Name" class="form-control" formControlName="name">
+                      <input type="text"  placeholder="Full Name" class="form-control" formControlName="name" [ngClass]="{ 'is-invalid': submitted && registerFormControl.name.errors }">
                       <span class="text-danger"
                           *ngIf="(registerFormControl.name.touched || submitted) && registerFormControl.name.errors?.required">
                           Name is required
                       </span>
                   </div>
                   <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Email" formControlName="email">
+                      <input type="text" class="form-control" placeholder="Email" formControlName="email" [ngClass]="{ 'is-invalid': submitted && registerFormControl.email.errors }">
                       <span class="text-danger"
                           *ngIf="(registerFormControl.email.touched || submitted) && registerFormControl.email.errors?.required">
                           Email is required
@@ -33,7 +35,7 @@
                       </span>
                   </div>
                   <div class="form-group">
-                      <input type="text" placeholder="User Name" class="form-control" formControlName="username">
+                      <input type="text" placeholder="User Name" class="form-control" formControlName="username" [ngClass]="{ 'is-invalid': submitted && registerFormControl.username.errors }">
                       <span class="text-danger"
                           *ngIf="(registerFormControl.username.touched || submitted) && registerFormControl.username.errors?.required">
                           User Name is required
@@ -44,7 +46,7 @@
                       </span>
                   </div>
                   <div class="form-group">
-                      <input type="password" placeholder="Password" class="form-control" formControlName="password">
+                      <input type="password" placeholder="Password" class="form-control" formControlName="password" [ngClass]="{ 'is-invalid': submitted && registerFormControl.password.errors }">
                       <span class="text-danger"
                           *ngIf="(registerFormControl.password.touched || submitted) && registerFormControl.password.errors?.required">
                           Password is required
@@ -56,7 +58,7 @@
                       </span>
                   </div>
                   <div class="form-group">
-                      <input type="text" placeholder="Phone Number" class="form-control" formControlName="phone">
+                      <input type="text" placeholder="Phone Number" class="form-control" formControlName="phone" [ngClass]="{ 'is-invalid': submitted && registerFormControl.phone.errors }">
                       <span class="text-danger"
                           *ngIf="(registerFormControl.phone.touched || submitted) && registerFormControl.phone.errors?.required">
                           Phone Number is required

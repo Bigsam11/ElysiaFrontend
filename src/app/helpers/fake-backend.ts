@@ -20,6 +20,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
         function handleRoute() {
             switch (true) {
+                case url.endsWith('/users/getuserbymail') && method === 'POST':
+                    return getuserbymail();
                 case url.endsWith('/users/register') && method === 'POST':
                     return register();
                 case url.endsWith('/users/authenticate') && method === 'POST':
@@ -53,16 +55,57 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         }
 
         function authenticate() {
-            const { username, password } = body;
-            const user = users.find(x => x.username === username && x.password === password);
-            if (!user) return error('Username or password is incorrect');
+            const { email, password } = body;
+            const user = users.find(x => x.email === email && x.password === password);
+            if (!user) return error('email or password is incorrect');
             return ok({
                 id: user.id,
                 username: user.username,
-                firstName: user.firstName,
-                lastName: user.lastName,
+                name: user.name,
+                email: user.email,
+                phone: user.phone,
                 token: 'fake-jwt-token'
             })
+        }
+
+
+        function getuserbymail() {
+            
+            const {email} = body;
+            console.log('It gets here too :::',email);
+            const user = users.find(x => x.email === email);
+            if (!user) return error('email  is incorrect');
+            return ok({
+                id: user.id,
+                username: user.username,
+                name: user.name,
+                email: user.email,
+                phone: user.phone,
+                token: 'fake-jwt-token'
+            })
+        }
+
+
+        function changePassword(){
+
+            const{ id, email} = body;
+            const user = users.find(x => x.email === email && x.id === id);
+            if (!user) {return error('email  is incorrect');}
+           else{
+            let newPassword = Math.random().toString(36).substring(7);
+            console.log("random", newPassword);
+               
+           }
+           return ok({
+
+            id: user.id,
+            username: user.username,
+            name: user.name,
+            email: user.email,
+            phone: user.phone,
+            password: user.newPassword,
+            token: 'fake-jwt-token'
+        })
         }
 
         function getUsers() {
@@ -76,6 +119,27 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             const user = users.find(x => x.id == idFromUrl());
             return ok(user);
         }
+
+        function getUserByEmail() {
+            //if (!isLoggedIn()) return unauthorized();
+            console.log('i got here::::::::: toooo',users.email);
+            const user = body
+
+            if (users.find(x => x.email === user.email)) {
+                
+                return ok({
+                    id: user.id,
+                    username: user.username,
+                    name: user.name,
+                    email: user.email,
+                    phone: user.phone,
+                    token: 'fake-jwt-token'
+                })
+
+            }
+        }
+
+       
 
         function deleteUser() {
             if (!isLoggedIn()) return unauthorized();
